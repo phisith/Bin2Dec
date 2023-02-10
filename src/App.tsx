@@ -15,7 +15,7 @@ function App() {
           <Button title={"C"} />
           <Button title={"0"} />
           <Button title={"1"} />
-          <Button title={"="} />
+          <Button title={"="} isSum={true} />
         </div>
       </div>
     </div>

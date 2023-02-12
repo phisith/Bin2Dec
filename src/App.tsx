@@ -4,12 +4,38 @@ function App() {
   const [input, setInput] = useState("");
   const [preInput, setPreInput] = useState("");
   const [inputError, setInputError] = useState(false);
-  const [result, setResult] = useState("");
 
   const regexCheck = new RegExp(/^[01]+$/g);
   const onChangeInput = (value: string) => {
-    setInputError(!regexCheck.test(value));
-    setInput(value);
+    if (preInput) {
+      const removePre = value.substring(input.length);
+      setPreInput("");
+      setInputError(!regexCheck.test(removePre));
+      setInput(removePre);
+    } else {
+      setInputError(!regexCheck.test(value));
+      setInput(value);
+    }
+  };
+
+  const convertToDec = () => {
+    if (!regexCheck.test(input)) {
+      setInputError(!regexCheck.test(input));
+      return;
+    }
+    let counter = 0;
+    let endresult = 0;
+    input
+      .split("")
+      .reverse()
+      .forEach(
+        (val) => (
+          val === "1" ? (endresult = endresult + Math.pow(2, counter)) : 0,
+          counter++
+        )
+      );
+    setInput(endresult.toString());
+    setPreInput(input);
   };
   return (
     <div className="flex flex-col h-screen justify-center items-center bg-gray-900 gap-6">
@@ -45,16 +71,17 @@ function App() {
           />
           <Button
             title={"0"}
-            onClickAction={() => setInput((prev) => prev + "0")}
+            onClickAction={() => onChangeInput(input + "0")}
           />
           <Button
             title={"1"}
-            onClickAction={() => setInput((prev) => prev + "1")}
+            onClickAction={() => onChangeInput(input + "1")}
           />
           <Button
             title={"="}
             isSum={true}
-            onClickAction={() => setPreInput(input)}
+            disabled={inputError ? true : false}
+            onClickAction={() => convertToDec()}
           />
         </div>
       </div>

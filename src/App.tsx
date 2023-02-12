@@ -38,54 +38,66 @@ function App() {
     setPreInput(input);
   };
   return (
-    <div className="flex flex-col h-screen justify-center items-center bg-gray-900 gap-6">
-      <h1 className="text-white font-extrabold text-2xl">
-        Convert Binary to Decimal
-      </h1>
-      <div className="flex flex-col border border-white/5 bg-white/5 rounded-xl shadow-xl p-4 gap-4">
-        <div className="flex flex-col text-right border border-white/5 bg-white/5 rounded-xl p-4 gap-2">
-          <span className="text-gray-400 text-xl">
-            {preInput} {preInput && "="}
-          </span>
-          <input
-            className="text-right text-4xl bg-transparent text-white"
-            value={input}
-            onChange={(e) => onChangeInput(e.target.value)}
-          />
-        </div>
-        {input ? (
-          <div
-            className={`text-center font-medium ${
-              inputError ? "visible text-red-600" : "hidden"
-            }`}
-          >
-            Please enter only 0 and 1
+    <>
+      <div className="flex flex-col relative h-screen justify-center items-center bg-gray-900 gap-6">
+        <h1 className="text-white font-extrabold text-2xl">
+          Convert Binary to Decimal
+        </h1>
+        <div className="flex flex-col border border-white/5 bg-white/5 rounded-xl shadow-xl p-4 gap-4">
+          <div className="flex flex-col text-right border border-white/5 bg-white/5 rounded-xl p-4 gap-2">
+            <span className="text-gray-400 text-xl">
+              {preInput} {preInput && "="}
+            </span>
+            <input
+              className="text-right text-4xl bg-transparent text-white"
+              value={input}
+              onChange={(e) => onChangeInput(e.target.value)}
+            />
           </div>
-        ) : null}
-        <div className="flex gap-4">
-          <Button
-            title={"C"}
-            onClickAction={() => {
-              setInput(""), setPreInput("");
-            }}
-          />
-          <Button
-            title={"0"}
-            onClickAction={() => onChangeInput(input + "0")}
-          />
-          <Button
-            title={"1"}
-            onClickAction={() => onChangeInput(input + "1")}
-          />
-          <Button
-            title={"="}
-            isSum={true}
-            disabled={inputError ? true : false}
-            onClickAction={() => convertToDec()}
-          />
+          {input ? (
+            <div
+              className={`text-center font-medium ${
+                inputError ? "visible text-red-600" : "hidden"
+              }`}
+            >
+              Please enter only 0 and 1
+            </div>
+          ) : null}
+          <div className="flex gap-4">
+            <Button
+              title={"C"}
+              onClickAction={() => {
+                setInput(""), setPreInput("");
+              }}
+            />
+            <Button
+              title={"0"}
+              onClickAction={() => onChangeInput(input + "0")}
+            />
+            <Button
+              title={"1"}
+              onClickAction={() => onChangeInput(input + "1")}
+            />
+            <Button
+              title={"="}
+              isSum={true}
+              disabled={inputError ? true : false}
+              onClickAction={() => convertToDec()}
+            />
+          </div>
         </div>
       </div>
-    </div>
+      <div className="bottom-0 mb-4 fixed flex gap-2 justify-center w-full text-white">
+        <p>Tech: React,Vite,Tailwind,Vercel </p>
+        <p>-</p>
+        <a
+          href="https://github.com/phisith/Bin2Dec.git"
+          className="hover:underline underline-offset-4"
+        >
+          Github
+        </a>
+      </div>
+    </>
   );
 }
 
